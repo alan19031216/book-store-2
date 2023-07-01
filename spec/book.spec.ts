@@ -228,4 +228,32 @@ describe('book api', () => {
         expect(books[0]).toBeInstanceOf(general.model.Book);
         expect(books[0].id).toEqual(book.id);
     });
+
+    it('should able to update', async () => {
+        const book = await general.api.book.create({
+            bookName: 'Book C',
+            price: 1,
+            quantity: 1,
+            description: {
+                en: 'This is a book description'
+            },
+        });
+
+        const updated_book = await general.api.book.update(book.id, {
+            bookName: 'Book C.1',
+            price: 100,
+            quantity: 200,
+            description: {
+                en: 'This is a new book description'
+            },
+        });
+
+        expect(updated_book).toBeInstanceOf(general.model.Book);
+        expect(updated_book.bookName).toEqual('Book C.1');
+        expect(updated_book.price).toEqual(100);
+        expect(updated_book.quantity).toEqual(200);
+        expect(updated_book.description).toEqual({
+            en: 'This is a new book description'
+        });
+    });
 });

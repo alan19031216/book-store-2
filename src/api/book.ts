@@ -56,17 +56,29 @@ export async function remove(bookId: string): Promise<void> {
     return book.delete();
 }
 
-export async function update(attributes: NewModelType<Book>): Promise<Book> {
-    const book = await Book.find(attributes.id);
+export async function update(bookId: string, attributes: NewModelType<Book>): Promise<Book> {
+    const book = await Book.find(bookId);
     await validate(attributes);
     if (!book) {
         throw new Error('Book not found');
     }
+
+    if (attributes.bookName != undefined && attributes.bookName != null) {
+        book.bookName = attributes.bookName;
+    }
+
+    if (attributes.price != undefined && attributes.price != null) {
+        book.price = attributes.price;
+    }
+
+    if (attributes.quantity != undefined && attributes.quantity != null) {
+        book.quantity = attributes.quantity;
+    }
+
+    if (attributes.description != undefined && attributes.description != null) {
+        book.description = attributes.description;
+    }
     
-    book.bookName = attributes.bookName;
-    book.price = attributes.price;
-    book.quantity = attributes.quantity;
-    book.description = attributes.description;
     await book.save();
     return book;
 }
