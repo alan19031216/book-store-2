@@ -95,6 +95,23 @@ describe('book api', () => {
         }
     });
 
+    it('should not be able to create a book if price less than 0 or equal to 0', async () => {
+        try {
+            await general.api.book.create({
+                bookName: 'Book A',
+                price: 0,
+                quantity: 1,
+                description: {
+                    en: 'This is book description'
+                },
+            });
+        } catch (e) {
+            if (e instanceof Error) {
+                expect(e.message).toEqual('Price must be greater than 0');
+            }
+        }
+    });
+
     it('should not be able to create a book if quantity is not a number', async () => {
         try {
             await general.api.book.create({
@@ -125,7 +142,23 @@ describe('book api', () => {
             });
         } catch (e) {
             if (e instanceof Error) {
-                console.log(e.message)
+                expect(e.message).toEqual('Quantity must be greater than 0');
+            }
+        }
+    });
+
+    it('should not be able to create a book if quantity less than 0 or equal to 0', async () => {
+        try {
+            await general.api.book.create({
+                bookName: 'Book A',
+                price: 1,
+                quantity: 0,
+                description: {
+                    en: 'This is book description'
+                },
+            });
+        } catch (e) {
+            if (e instanceof Error) {
                 expect(e.message).toEqual('Quantity must be greater than 0');
             }
         }

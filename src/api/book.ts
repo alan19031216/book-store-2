@@ -4,7 +4,10 @@ import Book from 'src/models/Book';
 
 async function validate(attributes: NewModelType<Book>) {
     const requiredFields = ['bookName', 'price', 'quantity', 'description',] as ModelKey<Book>[];
-    const missingFields = requiredFields.filter(field => !attributes[field]);
+    const missingFields = requiredFields.filter(field => {
+        const value = attributes[field];
+        return value === undefined || value === null || value === '';
+    });
     if (!attributes.id && missingFields.length > 0) {
         throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
     }
