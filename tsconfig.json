@@ -1,0 +1,39 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "rootDir": ".",
+        "paths": {
+            "src/*": [
+                "./src/*"
+            ]
+        },
+        "lib": [
+            "ES2021",
+            "DOM"
+        ],
+        "outDir": "./dist",
+        "sourceMap": true,
+        "target": "ES2015",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "strict": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+    },
+    "include": [
+        "src/",
+        "spec/",
+        "mocks/",
+        "index.ts",
+        "**/*.tgz",
+        "**/*.patch"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/__tests__/*",
+        "dist"
+    ]
+}
